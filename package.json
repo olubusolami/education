@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Contact form",
   "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "dependencies": {
     "dotenv": "^10.0.0",
     "email-validator": "^2.0.4",
@@ -14,10 +17,6 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
   },
   "author": "Olubusola",
   "license": "ISC"

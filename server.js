@@ -27,8 +27,6 @@ const { createUser, loginUser } = require("./routes/auth");
 
 dotenv.config();
 
-const PORT = process.env.PORT || 5000;
-
 app.get("/", (req, res) => {
   res.send("Hello and Welcome");
 });
@@ -189,6 +187,7 @@ app.get("/us_forms", usSchema);
 app.post("/register", createUser);
 app.post("/login", loginUser);
 
-app.listen(PORT, () => {
+port = process.env.PORT || 5000;
+app.listen(port, () => {
   console.log("server running well");
 });
