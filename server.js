@@ -185,6 +185,4 @@ app.post("/register", createUser);
 app.post("/login", loginUser);
 
 port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log("server running well");
-});
+app.listen(port, () => console.log("server running well"));
