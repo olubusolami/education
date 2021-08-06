@@ -22,9 +22,6 @@ const usRoute = require("./controllers/usDetails");
 const usSchema = require("./model/usSubmission");
 const { createUser, loginUser } = require("./routes/auth");
 
-// const australiaSchema = require("./model/australiaSubmission");
-// const usSchema = require("./model/canadaSubmission");
-
 dotenv.config();
 
 app.get("/", (req, res) => {
@@ -181,7 +178,7 @@ app.get("/canada_forms", canadaSchema);
 app.post("/uk_form", ukRoute);
 app.get("/uk_forms", ukSchema);
 app.post("/australia_form", australiaRoute);
-app.get("/uk_forms", ukSchema);
+app.get("/australia_forms", australiaSchema);
 app.post("/us_form", usRoute);
 app.get("/us_forms", usSchema);
 app.post("/register", createUser);
