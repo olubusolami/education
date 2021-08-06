@@ -55,6 +55,11 @@ const canadaSchema = mongoose.Schema({
     required: true,
     enum: ["male", "female", "prefer not to say"],
   },
+  programLevel: {
+    type: String,
+    required: true,
+    enum: ["B.Sc", "masters"],
+  },
   date: {
     type: Date,
     default: Date.now,
