@@ -11,8 +11,8 @@ const ukSchema = mongoose.Schema({
   phoneNumber: {
     type: Number,
     required: true,
-    min: 10,
-    max: 15,
+    minlength: [10, "Phone number should not go below 10 characters"],
+    maxlength: [15, "Phone number should not go above 15 characters"],
   },
   givenName: {
     type: String,
@@ -46,14 +46,20 @@ const ukSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  visaDenialLetter: {},
-  Gender: {
+  visaDenialLetter: {
+    type: String,
+    required: true,
+  },
+  gender: {
     type: String,
     required: true,
     enum: ["male", "female", "prefer not to say"],
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
-
 const ukDetails = mongoose.model("ukDetails", ukSchema);
 
 module.exports = ukDetails;

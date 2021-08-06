@@ -1,11 +1,6 @@
 const ukDetails = require("../model/ukSubmission");
 
-const createSubmission = async (req, res) => {
-  if (req.body.email === "") {
-    res.status(400).send({ status: "error", message: "email is required" });
-  }
-
-  console.log(req.body);
+const ukForm = async (req, res) => {
   try {
     const formInfo = await ukDetails.create({
       email: req.body.email,
@@ -15,17 +10,19 @@ const createSubmission = async (req, res) => {
       familyName: req.body.familyName,
       birthDate: req.body.birthDate,
       houseAddress: req.body.houseAddress,
-      Gender: req.body.Gender,
+      gender: req.body.gender,
       immigrationHistory: req.body.immigrationHistory,
       countryOfCitizenship: req.body.countryOfCitizenship,
+      visaDenialLetter: req.body.visaDenialLetter,
+      programLevel: req.body.programLevel,
     });
 
     formInfo.save();
 
-    return res.status(201).send({ message: "Success", data: formInfo });
+    return res.status(200).send({ message: "Success", data: formInfo });
   } catch (error) {
-    res.send("Internal server error");
+    return res.status(500).json({ status: "fail", message: error.message });
   }
 };
 
-module.exports = createSubmission;
+module.exports = ukForm;

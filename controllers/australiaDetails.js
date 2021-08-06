@@ -1,8 +1,8 @@
-const canadaDetails = require("../model/canadaSubmission");
+const australiaDetails = require("../model/australiaSubmission");
 
-const canadaForm = async (req, res) => {
+const australiaForm = async (req, res) => {
   try {
-    const formInfo = await canadaDetails.create({
+    const formInfo = await australiaDetails.create({
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
       givenName: req.body.givenName,
@@ -25,4 +25,4 @@ const canadaForm = async (req, res) => {
   }
 };
 
-module.exports = canadaForm;
+module.exports = australiaForm;
