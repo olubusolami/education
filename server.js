@@ -8,6 +8,7 @@ const Canada = require("./model/canadaSubmission");
 const US = require("./model/usSubmission");
 const Australia = require("./model/australiaSubmission");
 const UK = require("./model/ukSubmission");
+const { authUser } = require("./routes/auth");
 
 //import routes
 const contactRoute = require("./routes/contact");
@@ -144,7 +145,7 @@ app.get("/uk_forms", (req, res) => {
 });
 
 //delete one UK detail
-app.delete("/uk/:id", function (req, res) {
+app.delete(authUser, "/uk/:id", function (req, res) {
   UK.findByIdAndDelete(req.params.id)
     .exec()
     .then((result) => {

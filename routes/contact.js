@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
       data: contact,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(400).json({
       status: "Fail",
       message: error.message,
     });
