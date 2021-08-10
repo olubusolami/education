@@ -2,13 +2,12 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-// const User = require("./model/register");
 const Contact = require("./model/contact");
 const Canada = require("./model/canadaSubmission");
 const US = require("./model/usSubmission");
 const Australia = require("./model/australiaSubmission");
 const UK = require("./model/ukSubmission");
-const { authUser } = require("./routes/auth");
+// const auth = require("./middleware/auth");
 
 //import routes
 const contactRoute = require("./routes/contact");
@@ -21,12 +20,12 @@ const australiaRoute = require("./controllers/australiaDetails");
 const australiaSchema = require("./model/australiaSubmission");
 const usRoute = require("./controllers/usDetails");
 const usSchema = require("./model/usSubmission");
-const { createUser, loginUser } = require("./routes/auth");
+const { loginUser } = require("./routes/auth");
 
 dotenv.config();
 
 app.get("/", (req, res) => {
-  res.send("Hello and Welcome");
+  res.send("Hello and Welcome 🙌");
 });
 
 //get all contact
@@ -145,7 +144,7 @@ app.get("/uk_forms", (req, res) => {
 });
 
 //delete one UK detail
-app.delete(authUser, "/uk/:id", function (req, res) {
+app.delete("/uk/:id", function (req, res) {
   UK.findByIdAndDelete(req.params.id)
     .exec()
     .then((result) => {
@@ -182,7 +181,7 @@ app.post("/australia_form", australiaRoute);
 app.get("/australia_forms", australiaSchema);
 app.post("/us_form", usRoute);
 app.get("/us_forms", usSchema);
-app.post("/register", createUser);
+// app.post("/register", createUser);
 app.post("/login", loginUser);
 
 const port = process.env.PORT || 5000;
