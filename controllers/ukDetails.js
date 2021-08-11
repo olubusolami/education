@@ -1,7 +1,13 @@
 const ukDetails = require("../model/ukSubmission");
+const { submission } = require("../validation");
 
 const ukForm = async (req, res) => {
   try {
+    //validate before sending details
+    const { error } = submission(req.body);
+    if (error) return res.status(400).json(error.details[0].message);
+
+    //detail check
     const formInfo = await ukDetails.create({
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,

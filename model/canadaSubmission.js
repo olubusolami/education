@@ -11,8 +11,6 @@ const canadaSchema = mongoose.Schema({
   phoneNumber: {
     type: Number,
     required: true,
-    minlength: [10, "Phone number should not go below 10 characters"],
-    maxlength: [15, "Phone number should not go above 15 characters"],
   },
   givenName: {
     type: String,
@@ -53,12 +51,12 @@ const canadaSchema = mongoose.Schema({
   gender: {
     type: String,
     required: true,
-    enum: ["male", "female", "prefer not to say"],
+    enum: ["male", "female", "prefer_not_to_say"],
   },
   programLevel: {
     type: String,
     required: true,
-    enum: ["B.Sc", "masters"],
+    enum: ["bsc", "masters"],
   },
   date: {
     type: Date,
