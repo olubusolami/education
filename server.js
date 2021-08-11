@@ -7,7 +7,7 @@ const Canada = require("./model/canadaSubmission");
 const US = require("./model/usSubmission");
 const Australia = require("./model/australiaSubmission");
 const UK = require("./model/ukSubmission");
-// const auth = require("./middleware/auth");
+const auth = require("./middleware/auth");
 
 //import routes
 const contactRoute = require("./routes/contact");
@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 });
 
 //get all contact
-app.get("/contacts", (req, res) => {
+app.get("/contacts", auth, (req, res) => {
   Contact.find()
     .then((users) => {
       res.send(users);
@@ -40,7 +40,7 @@ app.get("/contacts", (req, res) => {
 });
 
 //delete one contact
-app.delete("/contacts/:id", function (req, res) {
+app.delete("/contacts/:id", auth, function (req, res) {
   Contact.findByIdAndDelete(req.params.id)
     .exec()
     .then((result) => {
@@ -55,7 +55,7 @@ app.delete("/contacts/:id", function (req, res) {
 });
 
 //get all canada details
-app.get("/canada_forms", (req, res) => {
+app.get("/canada_forms", auth, (req, res) => {
   Canada.find()
     .then((users) => {
       res.send(users);
@@ -66,7 +66,7 @@ app.get("/canada_forms", (req, res) => {
 });
 
 //delete one canada detail
-app.delete("/canada/:id", function (req, res) {
+app.delete("/canada/:id", auth, function (req, res) {
   Canada.findByIdAndDelete(req.params.id)
     .exec()
     .then((result) => {
@@ -81,7 +81,7 @@ app.delete("/canada/:id", function (req, res) {
 });
 
 //get all US details
-app.get("/us_forms", (req, res) => {
+app.get("/us_forms", auth, (req, res) => {
   US.find()
     .then((users) => {
       res.send(users);
@@ -92,7 +92,7 @@ app.get("/us_forms", (req, res) => {
 });
 
 //delete one US detail
-app.delete("/us/:id", function (req, res) {
+app.delete("/us/:id", auth, function (req, res) {
   US.findByIdAndDelete(req.params.id)
     .exec()
     .then((result) => {
@@ -107,7 +107,7 @@ app.delete("/us/:id", function (req, res) {
 });
 
 //get all Australia details
-app.get("/australia_forms", (req, res) => {
+app.get("/australia_forms", auth, (req, res) => {
   Australia.find()
     .then((users) => {
       res.send(users);
@@ -118,7 +118,7 @@ app.get("/australia_forms", (req, res) => {
 });
 
 //delete one Australia detail
-app.delete("/australia/:id", function (req, res) {
+app.delete("/australia/:id", auth, function (req, res) {
   Australia.findByIdAndDelete(req.params.id)
     .exec()
     .then((result) => {
@@ -133,7 +133,7 @@ app.delete("/australia/:id", function (req, res) {
 });
 
 //get all UK details
-app.get("/uk_forms", (req, res) => {
+app.get("/uk_forms", auth, (req, res) => {
   UK.find()
     .then((users) => {
       res.send(users);
@@ -144,7 +144,7 @@ app.get("/uk_forms", (req, res) => {
 });
 
 //delete one UK detail
-app.delete("/uk/:id", function (req, res) {
+app.delete("/uk/:id", auth, function (req, res) {
   UK.findByIdAndDelete(req.params.id)
     .exec()
     .then((result) => {
@@ -166,13 +166,13 @@ mongoose
     useFindAndModify: false,
     useCreateIndex: true,
   })
-  .then((res) => console.log("connected to database"));
+  .then((res) => console.log("connected to the database"));
 
 app.use(express.json());
 
 //middleware
 app.get("/contacts", contactSchema);
-app.use("/api/contacts", contactRoute);
+app.use("/contacts", contactRoute);
 app.post("/canada_form", canadaRoute);
 app.get("/canada_forms", canadaSchema);
 app.post("/uk_form", ukRoute);
