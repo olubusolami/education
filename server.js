@@ -45,7 +45,7 @@ app.use(cors());
 
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5000");
 
   // Request methods you wish to allow
   res.setHeader(
@@ -56,7 +56,7 @@ app.use(function (req, res, next) {
   // Request headers you wish to allow
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, Content-Type, Authorization"
+    "Origin, X-Requested-With, Content-Type, Authorization"
   );
 
   // Set to true if you need the website to include
