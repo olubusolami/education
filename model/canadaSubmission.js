@@ -4,9 +4,9 @@ const validator = require("validator");
 const canadaSchema = mongoose.Schema({
   email: {
     type: String,
-    unique: true,
     required: [true, "Email address is required."],
     validate: [validator.isEmail, "Please provide a valid email address."],
+    unique: true,
   },
   phoneNumber: {
     type: Number,
@@ -46,7 +46,9 @@ const canadaSchema = mongoose.Schema({
   },
   visaDenialLetter: {
     type: String,
-    required: true,
+  },
+  visaDenialLetterKey: {
+    type: String,
   },
   gender: {
     type: String,

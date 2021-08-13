@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const australiaSchema = mongoose.Schema({
+const lithuainaSchema = mongoose.Schema({
   email: {
     type: String,
-    required: true,
+    required: [true, "Email address is required."],
     validate: [validator.isEmail, "Please provide a valid email address."],
     unique: true,
   },
@@ -45,18 +45,20 @@ const australiaSchema = mongoose.Schema({
     required: true,
   },
   visaDenialLetter: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+  },
+  visaDenialLetterKey: {
+    type: String,
   },
   gender: {
     type: String,
     required: true,
     enum: ["male", "female", "prefer_not_to_say"],
   },
-  programLevel: {
+  experienceLevel: {
     type: String,
     required: true,
-    enum: ["bsc", "masters"],
+    enum: ["skilled", "unskilled"],
   },
   date: {
     type: Date,
@@ -64,6 +66,6 @@ const australiaSchema = mongoose.Schema({
   },
 });
 
-const australiaDetails = mongoose.model("australiaDetails", australiaSchema);
+const lithuainaDetails = mongoose.model("lithuainaDetails", lithuainaSchema);
 
-module.exports = australiaDetails;
+module.exports = lithuainaDetails;
