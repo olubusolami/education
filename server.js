@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const Contact = require("./model/contact");
@@ -8,6 +9,7 @@ const US = require("./model/usSubmission");
 const Australia = require("./model/australiaSubmission");
 const UK = require("./model/ukSubmission");
 const auth = require("./middleware/auth");
+const Lithuaina = require("./model/lithuainaSubmission");
 
 //import routes
 const contactRoute = require("./routes/contact");
@@ -20,6 +22,8 @@ const australiaRoute = require("./controllers/australiaDetails");
 const australiaSchema = require("./model/australiaSubmission");
 const usRoute = require("./controllers/usDetails");
 const usSchema = require("./model/usSubmission");
+const lithuainaSchema = require("./model/lithuainaSubmission");
+const lithuainaRoute = require("./controllers/lithuainaDetails");
 const { loginUser } = require("./routes/auth");
 
 dotenv.config();
@@ -158,6 +162,32 @@ app.delete("/uk/:id", auth, function (req, res) {
     .catch((error) => next(err));
 });
 
+//get all lithuaina details
+app.get("/lithuaina_forms", auth, (req, res) => {
+  Lithuaina.find()
+    .then((users) => {
+      res.send(users);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+//delete one lithuaina detail
+app.delete("/lithuaina/:id", auth, function (req, res) {
+  Lithuaina.findByIdAndDelete(req.params.id)
+    .exec()
+    .then((result) => {
+      if (!result) {
+        return res.status(404).end();
+      }
+      return res
+        .status(200)
+        .json({ status: "Success", message: "Deleted Successfully" });
+    })
+    .catch((error) => next(err));
+});
+
 //connect to mongoose
 mongoose
   .connect(process.env.DB_CONNECT, {
@@ -170,6 +200,32 @@ mongoose
 
 app.use(express.json());
 
+app.use(cors());
+
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader("Access-Control-Allow-Origin", "wildcat");
+
+  // Request methods you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE"
+  );
+
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", true);
+
+  // Pass to next layer of middleware
+  next();
+});
+
 //middleware
 app.get("/contacts", contactSchema);
 app.use("/contacts", contactRoute);
@@ -181,6 +237,8 @@ app.post("/australia_form", australiaRoute);
 app.get("/australia_forms", australiaSchema);
 app.post("/us_form", usRoute);
 app.get("/us_forms", usSchema);
+app.post("/lithuaina_form", lithuainaRoute);
+app.get("/lithuaina_forms", lithuainaSchema);
 // app.post("/register", createUser);
 app.post("/login", loginUser);
 

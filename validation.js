@@ -4,12 +4,12 @@ const Joi = require("@hapi/joi");
 //validation
 const submission = (data) => {
   const schema = Joi.object({
+    email: Joi.string().min(6).required().email(),
+    phoneNumber: Joi.string().min(10).max(15).required(),
+    givenName: Joi.string().min(6).required(),
     familyName: Joi.string().min(6).required(),
     middleName: Joi.string().min(6).required(),
-    email: Joi.string().min(6).required().email(),
-    givenName: Joi.string().min(6).required(),
     houseAddress: Joi.string().required(),
-    phoneNumber: Joi.string().min(10).max(15).required(),
     birthDate: Joi.string().required(),
     countryOfCitizenship: Joi.string().required(),
     immigrationHistory: Joi.string().required(),
@@ -30,4 +30,22 @@ const contactValidation = (data) => {
   return schema.validate(data);
 };
 
-module.exports = { submission, contactValidation };
+const workSubmission = (data) => {
+  const schema = Joi.object({
+    email: Joi.string().min(6).required().email(),
+    phoneNumber: Joi.string().min(10).max(15).required(),
+    givenName: Joi.string().min(6).required(),
+    familyName: Joi.string().min(6).required(),
+    middleName: Joi.string().min(6).required(),
+    houseAddress: Joi.string().required(),
+    birthDate: Joi.string().required(),
+    countryOfCitizenship: Joi.string().required(),
+    immigrationHistory: Joi.string().required(),
+    visaDenialLetter: Joi.string().required(),
+    gender: Joi.string().required(),
+    experienceLevel: Joi.string().required(),
+  });
+  return schema.validate(data);
+};
+
+module.exports = { submission, contactValidation, workSubmission };
