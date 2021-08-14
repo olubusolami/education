@@ -13,7 +13,6 @@ const submission = (data) => {
     birthDate: Joi.string().required(),
     countryOfCitizenship: Joi.string().required(),
     immigrationHistory: Joi.string().required(),
-    visaDenialLetter: Joi.string().required(),
     gender: Joi.string().required(),
     programLevel: Joi.string().required(),
   });

@@ -1,11 +1,56 @@
 const ukDetails = require("../model/ukSubmission");
 const { submission } = require("../validation");
+const path = require("path");
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+cloudinary.config({
+  cloud_name: "df8sl3bso",
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-const ukForm = async (req, res) => {
+const storage = multer.diskStorage({
+  filename: (req, file, cb) => {
+    return cb(
+      null,
+      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+    );
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "application/pdf"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+exports.uk = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+  fileFilter: fileFilter,
+});
+
+exports.ukForm = async (req, res) => {
   try {
     //validate before sending details
     const { error } = submission(req.body);
     if (error) return res.status(400).json(error.details[0].message);
+
+    let visaDenialLetter;
+    let visaDenialLetterKey;
+    if (req.file) {
+      const result = await cloudinary.v2.uploader.upload(req.file.path);
+      visaDenialLetter = result.secure_url;
+      visaDenialLetterKey = result.public_id;
+    }
 
     //detail check
     const formInfo = await ukDetails.create({
@@ -19,7 +64,8 @@ const ukForm = async (req, res) => {
       gender: req.body.gender,
       immigrationHistory: req.body.immigrationHistory,
       countryOfCitizenship: req.body.countryOfCitizenship,
-      visaDenialLetter: req.body.visaDenialLetter,
+      visaDenialLetter,
+      visaDenialLetterKey,
       programLevel: req.body.programLevel,
     });
 
@@ -30,5 +76,3 @@ const ukForm = async (req, res) => {
     return res.status(500).json({ status: "fail", message: error.message });
   }
 };
-
-module.exports = ukForm;

@@ -46,7 +46,9 @@ const ukSchema = mongoose.Schema({
   },
   visaDenialLetter: {
     type: String,
-    required: true,
+  },
+  visaDenialLetterKey: {
+    type: String,
   },
   gender: {
     type: String,

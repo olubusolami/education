@@ -45,8 +45,10 @@ const australiaSchema = mongoose.Schema({
     required: true,
   },
   visaDenialLetter: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+  },
+  visaDenialLetterKey: {
+    type: String,
   },
   gender: {
     type: String,

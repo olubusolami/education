@@ -1,7 +1,8 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const Contact = require("./model/contact");
 const Canada = require("./model/canadaSubmission");
@@ -14,19 +15,17 @@ const Lithuaina = require("./model/lithuainaSubmission");
 //import routes
 const contactRoute = require("./routes/contact");
 const contactSchema = require("./model/contact");
-const canadaRoute = require("./controllers/canadaDetails");
+const { canada, canadaForm } = require("./controllers/canadaDetails");
 const canadaSchema = require("./model/canadaSubmission");
-const ukRoute = require("./controllers/ukDetails");
+const { uk, ukForm } = require("./controllers/ukDetails");
 const ukSchema = require("./model/ukSubmission");
-const australiaRoute = require("./controllers/australiaDetails");
+const { australia, australiaForm } = require("./controllers/australiaDetails");
 const australiaSchema = require("./model/australiaSubmission");
-const usRoute = require("./controllers/usDetails");
+const { us, usForm } = require("./controllers/usDetails");
 const usSchema = require("./model/usSubmission");
 const lithuainaSchema = require("./model/lithuainaSubmission");
-const lithuainaRoute = require("./controllers/lithuainaDetails");
+const { lithuaina, lithuainaForm } = require("./controllers/lithuainaDetails");
 const { loginUser } = require("./routes/auth");
-
-dotenv.config();
 
 //connect to mongoose
 mongoose
@@ -44,25 +43,16 @@ app.use(express.json());
 app.use(cors());
 
 app.use(function (req, res, next) {
-  // Website you wish to allow to connect
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:5000");
-
-  // Request methods you wish to allow
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
   );
-
-  // Request headers you wish to allow
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Authorization"
   );
-
-  // Set to true if you need the website to include
-  //cookies in the requests sent to the API (e.g. in case you use sessions)
   res.setHeader("Access-Control-Allow-Credentials", true);
-
   // Pass to next layer of middleware
   next();
 });
@@ -230,15 +220,23 @@ app.delete("/lithuaina/:id", auth, function (req, res) {
 //middleware
 app.get("/contacts", contactSchema);
 app.use("/contacts", contactRoute);
-app.post("/canada_form", canadaRoute);
+app.post("/canada_form", canada.single("canadaDenialLetter"), canadaForm);
 app.get("/canada_forms", canadaSchema);
-app.post("/uk_form", ukRoute);
+app.post("/uk_form", uk.single("ukDenialLetter"), ukForm);
 app.get("/uk_forms", ukSchema);
-app.post("/australia_form", australiaRoute);
+app.post(
+  "/australia_form",
+  australia.single("australiaDenialLetter"),
+  australiaForm
+);
 app.get("/australia_forms", australiaSchema);
-app.post("/us_form", usRoute);
+app.post("/us_form", us.single("usDenialLetter"), usForm);
 app.get("/us_forms", usSchema);
-app.post("/lithuaina_form", lithuainaRoute);
+app.post(
+  "/lithuaina_form",
+  lithuaina.single("lithuainaDenialLetter"),
+  lithuainaForm
+);
 app.get("/lithuaina_forms", lithuainaSchema);
 // app.post("/register", createUser);
 app.post("/login", loginUser);
