@@ -29,10 +29,12 @@ const { loginUser } = require("./routes/auth");
 
 //configure cors
 // app.use(cors());
+
+app.use(express.json());
 app.use(cors({ origin: true }));
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', "*");
+  res.setHeader('Access-Control-Allow-Origin', "GET, DELETE, POST");
   res.setHeader('Access-Control-Allow-Headers', "*");
   res.header('Access-Control-Allow-Credentials', true);
   next();
@@ -66,8 +68,6 @@ mongoose
     useCreateIndex: true,
   })
   .then((res) => console.log("connected to the database"));
-
-app.use(express.json());
 
 
 //get all contact
