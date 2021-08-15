@@ -44,8 +44,6 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json());
 
-app.use(express.json());
-
 // app.use(function (req, res, next) {
 //   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 //   res.setHeader(
@@ -75,6 +73,7 @@ mongoose
   })
   .then((res) => console.log("connected to the database"));
 
+app.use(express.json());
 
 //get all contact
 app.get("/contacts", auth, (req, res) => {
