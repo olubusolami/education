@@ -27,6 +27,36 @@ const lithuainaSchema = require("./model/lithuainaSubmission");
 const { lithuaina, lithuainaForm } = require("./controllers/lithuainaDetails");
 const { loginUser } = require("./routes/auth");
 
+//configure cors
+// app.use(cors());
+app.use(cors({ origin: true }));
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', "http://localhost:3000");
+  res.setHeader('Access-Control-Allow-Headers', "*");
+  res.header('Access-Control-Allow-Credentials', true);
+  next();
+});
+
+// app.use(function (req, res, next) {
+//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PUT, PATCH, DELETE"
+//   );
+//   res.setHeader(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Authorization"
+//   );
+//   res.setHeader("Access-Control-Allow-Credentials", true);
+//   // Pass to next layer of middleware
+//   next();
+// });
+
+app.get("/", (req, res) => {
+  res.send("Hello and Welcome 🙌");
+});
+
 //connect to mongoose
 mongoose
   .connect(process.env.DB_CONNECT, {
@@ -39,27 +69,6 @@ mongoose
 
 app.use(express.json());
 
-//configure cors
-app.use(cors());
-
-app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5000");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Authorization"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  // Pass to next layer of middleware
-  next();
-});
-
-app.get("/", (req, res) => {
-  res.send("Hello and Welcome 🙌");
-});
 
 //get all contact
 app.get("/contacts", auth, (req, res) => {
