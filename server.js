@@ -3,7 +3,6 @@ dotenv.config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Contact = require("./model/contact");
 const Canada = require("./model/canadaSubmission");
@@ -31,6 +30,7 @@ const { loginUser } = require("./routes/auth");
 //configure cors
 // app.use(cors());
 
+app.use(express.json());
 app.use(cors({ origin: true }));
 
 app.use((req, res, next) => {
@@ -39,10 +39,6 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', true);
   next();
 });
-
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-app.use(express.json());
 
 // app.use(function (req, res, next) {
 //   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -73,7 +69,6 @@ mongoose
   })
   .then((res) => console.log("connected to the database"));
 
-app.use(express.json());
 
 //get all contact
 app.get("/contacts", auth, (req, res) => {
