@@ -27,6 +27,7 @@ const lithuainaSchema = require("./model/lithuainaSubmission");
 const { lithuaina, lithuainaForm } = require("./controllers/lithuainaDetails");
 const { loginUser } = require("./routes/auth");
 
+//express pass
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -221,27 +222,20 @@ app.delete("/lithuaina/:id", auth, function (req, res) {
 //middleware
 app.get("/contacts", contactSchema);
 app.use("/contacts", contactRoute);
-app.post(
-  "/canada_form",
-  urlencoded,
-  canada.single("canadaDenialLetter"),
-  canadaForm
-);
+app.post("/canada_form", canada.single("canadaDenialLetter"), canadaForm);
 app.get("/canada_forms", canadaSchema);
-app.post("/uk_form", urlencoded, uk.single("ukDenialLetter"), ukForm);
+app.post("/uk_form", uk.single("ukDenialLetter"), ukForm);
 app.get("/uk_forms", ukSchema);
 app.post(
   "/australia_form",
-  urlencoded,
   australia.single("australiaDenialLetter"),
   australiaForm
 );
 app.get("/australia_forms", australiaSchema);
-app.post("/us_form", urlencoded, us.single("usDenialLetter"), usForm);
+app.post("/us_form", us.single("usDenialLetter"), usForm);
 app.get("/us_forms", usSchema);
 app.post(
   "/lithuaina_form",
-  urlencoded,
   lithuaina.single("lithuainaDenialLetter"),
   lithuainaForm
 );
