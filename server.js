@@ -37,7 +37,7 @@ mongoose
   })
   .then((res) => console.log("connected to the database"));
 
-//express pass
+//express passage
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
