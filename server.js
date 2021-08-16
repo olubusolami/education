@@ -27,17 +27,8 @@ const lithuainaSchema = require("./model/lithuainaSubmission");
 const { lithuaina, lithuainaForm } = require("./controllers/lithuainaDetails");
 const { loginUser } = require("./routes/auth");
 
-//connect to mongoose
-mongoose
-  .connect(process.env.DB_CONNECT, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
-  .then((res) => console.log("connected to the database"));
-
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //configure cors
 app.use(cors());
@@ -57,6 +48,16 @@ app.use(function (req, res, next) {
   next();
 });
 
+//connect to mongoose
+mongoose
+  .connect(process.env.DB_CONNECT, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
+  .then((res) => console.log("connected to the database"));
+
 app.get("/", (req, res) => {
   res.send("Hello and Welcome 🙌");
 });
@@ -68,7 +69,7 @@ app.get("/contacts", auth, (req, res) => {
       res.send(users);
     })
     .catch((error) => {
-      res.status(500).send(error);
+      res.status(400).send(error);
     });
 });
 
@@ -94,7 +95,7 @@ app.get("/canada_forms", auth, (req, res) => {
       res.send(users);
     })
     .catch((error) => {
-      res.status(500).send(error);
+      res.status(400).send(error);
     });
 });
 
@@ -120,7 +121,7 @@ app.get("/us_forms", auth, (req, res) => {
       res.send(users);
     })
     .catch((error) => {
-      res.status(500).send(error);
+      res.status(400).send(error);
     });
 });
 
@@ -146,7 +147,7 @@ app.get("/australia_forms", auth, (req, res) => {
       res.send(users);
     })
     .catch((error) => {
-      res.status(500).send(error);
+      res.status(400).send(error);
     });
 });
 
@@ -220,20 +221,27 @@ app.delete("/lithuaina/:id", auth, function (req, res) {
 //middleware
 app.get("/contacts", contactSchema);
 app.use("/contacts", contactRoute);
-app.post("/canada_form", canada.single("canadaDenialLetter"), canadaForm);
+app.post(
+  "/canada_form",
+  urlencoded,
+  canada.single("canadaDenialLetter"),
+  canadaForm
+);
 app.get("/canada_forms", canadaSchema);
-app.post("/uk_form", uk.single("ukDenialLetter"), ukForm);
+app.post("/uk_form", urlencoded, uk.single("ukDenialLetter"), ukForm);
 app.get("/uk_forms", ukSchema);
 app.post(
   "/australia_form",
+  urlencoded,
   australia.single("australiaDenialLetter"),
   australiaForm
 );
 app.get("/australia_forms", australiaSchema);
-app.post("/us_form", us.single("usDenialLetter"), usForm);
+app.post("/us_form", urlencoded, us.single("usDenialLetter"), usForm);
 app.get("/us_forms", usSchema);
 app.post(
   "/lithuaina_form",
+  urlencoded,
   lithuaina.single("lithuainaDenialLetter"),
   lithuainaForm
 );
