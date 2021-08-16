@@ -37,12 +37,13 @@ mongoose
   })
   .then((res) => console.log("connected to the database"));
 
-//express passage
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-//configure cors
 app.use(cors());
+
+//express passage
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
