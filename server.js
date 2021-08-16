@@ -27,6 +27,16 @@ const lithuainaSchema = require("./model/lithuainaSubmission");
 const { lithuaina, lithuainaForm } = require("./controllers/lithuainaDetails");
 const { loginUser } = require("./routes/auth");
 
+//connect to mongoose
+mongoose
+  .connect(process.env.DB_CONNECT, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
+  .then((res) => console.log("connected to the database"));
+
 //express pass
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,16 +58,6 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-
-//connect to mongoose
-mongoose
-  .connect(process.env.DB_CONNECT, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
-  .then((res) => console.log("connected to the database"));
 
 app.get("/", (req, res) => {
   res.send("Hello and Welcome 🙌");
