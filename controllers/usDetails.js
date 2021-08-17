@@ -64,7 +64,8 @@ exports.usForm = async (req, res) => {
       gender: req.body.gender,
       immigrationHistory: req.body.immigrationHistory,
       countryOfCitizenship: req.body.countryOfCitizenship,
-      visaDenialLetter: req.body.visaDenialLetter,
+      visaDenialLetter,
+      visaDenialLetterKey,
       programLevel: req.body.programLevel,
     });
 
@@ -72,6 +73,6 @@ exports.usForm = async (req, res) => {
 
     return res.status(200).send({ message: "Success", data: formInfo });
   } catch (error) {
-    return res.status(500).json({ status: "fail", message: error.message });
+    return res.status(400).json({ status: "fail", message: error.message });
   }
 };
