@@ -51,7 +51,6 @@ exports.australiaForm = async (req, res) => {
       visaDenialLetter = result.secure_url;
       visaDenialLetterKey = result.public_id;
     }
-
     //detail check
     const formInfo = await australiaDetails.create({
       email: req.body.email,
@@ -64,7 +63,8 @@ exports.australiaForm = async (req, res) => {
       gender: req.body.gender,
       immigrationHistory: req.body.immigrationHistory,
       countryOfCitizenship: req.body.countryOfCitizenship,
-      visaDenialLetter: req.body.visaDenialLetter,
+      visaDenialLetter,
+      visaDenialLetterKey,
       programLevel: req.body.programLevel,
     });
 
