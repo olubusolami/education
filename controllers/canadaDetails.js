@@ -4,7 +4,7 @@ const path = require("path");
 const multer = require("multer");
 const cloudinary = require("cloudinary");
 cloudinary.config({
-  cloud_name: df8sl3bso,
+  cloud_name: "df8sl3bso",
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
