@@ -40,7 +40,6 @@ const workSubmission = (data) => {
     birthDate: Joi.string().required(),
     countryOfCitizenship: Joi.string().required(),
     immigrationHistory: Joi.string().required(),
-    visaDenialLetter: Joi.string().required(),
     gender: Joi.string().required(),
     experienceLevel: Joi.string().required(),
   });
