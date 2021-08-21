@@ -66,6 +66,8 @@ exports.canadaForm = async (req, res) => {
       visaDenialLetter,
       visaDenialLetterKey,
       programLevel: req.body.programLevel,
+      highestLevelOfEducation: req.body.highestLevelOfEducation,
+      desiredCourseOfStudy: req.body.desiredCourseOfStudy,
     });
 
     formInfo.save();
