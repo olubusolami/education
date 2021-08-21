@@ -58,7 +58,15 @@ const canadaSchema = mongoose.Schema({
   programLevel: {
     type: String,
     required: true,
-    enum: ["bsc", "masters"],
+    enum: ["bsc", "masters", "post-graduate diploma", "pre-masters degree"],
+  },
+  highestLevelOfEducation: {
+    type: String,
+    required: true,
+  },
+  desiredCourseOfStudy: {
+    type: String,
+    required: true,
   },
   date: {
     type: Date,

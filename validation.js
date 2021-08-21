@@ -15,6 +15,8 @@ const submission = (data) => {
     immigrationHistory: Joi.string().required(),
     gender: Joi.string().required(),
     programLevel: Joi.string().required(),
+    highestLevelOfEducation: Joi.string().required(),
+    desiredCourseOfStudy: Joi.string().required(),
   });
   return schema.validate(data);
 };
