@@ -28,7 +28,7 @@ const canadaSchema = mongoose.Schema({
     trim: true,
   },
   birthDate: {
-    type: Date,
+    type: String,
     required: true,
     trim: true,
   },

@@ -48,4 +48,19 @@ const workSubmission = (data) => {
   return schema.validate(data);
 };
 
-module.exports = { submission, contactValidation, workSubmission };
+const relocationSubmission = (data) => {
+  const schema = Joi.object({
+    name: Joi.string().min(6).required(),
+    email: Joi.string().min(6).required().email(),
+    phoneNumber: Joi.string().min(10).max(15).required(),
+    chooseWhatYouWantToKnowAbout: Joi.string().required(),
+  });
+  return schema.validate(data);
+};
+
+module.exports = {
+  submission,
+  contactValidation,
+  workSubmission,
+  relocationSubmission,
+};

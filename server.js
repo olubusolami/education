@@ -11,6 +11,7 @@ const Australia = require("./model/australiaSubmission");
 const UK = require("./model/ukSubmission");
 const auth = require("./middleware/auth");
 const Lithuaina = require("./model/lithuainaSubmission");
+const Relocation = require("./model/relocation");
 
 //import routes
 const contactRoute = require("./routes/contact");
@@ -25,6 +26,11 @@ const { us, usForm } = require("./controllers/usDetails");
 const usSchema = require("./model/usSubmission");
 const lithuainaSchema = require("./model/lithuainaSubmission");
 const { lithuaina, lithuainaForm } = require("./controllers/lithuainaDetails");
+const {
+  relocationRoute,
+  relocationForm,
+} = require("./controllers/relocationDetails");
+const relocationSchema = require("./model/relocation");
 const { loginUser } = require("./routes/auth");
 
 //connect to mongoose
@@ -37,17 +43,11 @@ mongoose
   })
   .then((res) => console.log("connected to the database"));
 
-
 app.use(cors());
 
 //express passage
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: false, limit: '50mb' }));
-// app.use(express.json());
-// app.use(express.urlencoded({ limit:'50mb', extended: true }));
-
-
-
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: false, limit: "50mb" }));
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -224,6 +224,32 @@ app.delete("/lithuaina/:id", auth, function (req, res) {
     .catch((error) => next(err));
 });
 
+//get all relocation details
+app.get("/relocation_forms", auth, (req, res) => {
+  Relocation.find()
+    .then((users) => {
+      res.send(users);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+//delete one relocation detail
+app.delete("/relocation/:id", auth, function (req, res) {
+  Relocation.findByIdAndDelete(req.params.id)
+    .exec()
+    .then((result) => {
+      if (!result) {
+        return res.status(404).end();
+      }
+      return res
+        .status(200)
+        .json({ status: "Success", message: "Deleted Successfully" });
+    })
+    .catch((error) => next(err));
+});
+
 //middleware
 app.get("/contacts", contactSchema);
 app.use("/contacts", contactRoute);
@@ -245,6 +271,8 @@ app.post(
   lithuainaForm
 );
 app.get("/lithuaina_forms", lithuainaSchema);
+app.post("/relocation_form", relocationForm);
+app.get("/relocation_forms", relocationSchema);
 // app.post("/register", createUser);
 app.post("/login", loginUser);
 
