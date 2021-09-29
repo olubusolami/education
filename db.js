@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-let DB_CONNECT = process.env.DB_CONNECT; // here we are using the MongoDB Url we defined in our ENV file
+let DB_CONNECT = process.env.DB_CONNECT;
 
 module.exports = async function connection() {
   try {
