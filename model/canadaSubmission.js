@@ -19,7 +19,6 @@ const canadaSchema = mongoose.Schema({
   },
   middleName: {
     type: String,
-    required: [true, "Please provide your middle name."],
     trim: true,
   },
   familyName: {
@@ -34,7 +33,6 @@ const canadaSchema = mongoose.Schema({
   },
   houseAddress: {
     type: String,
-    required: true,
   },
   countryOfCitizenship: {
     type: String,
@@ -42,7 +40,6 @@ const canadaSchema = mongoose.Schema({
   },
   immigrationHistory: {
     type: String,
-    required: true,
   },
   visaDenialLetter: {
     type: String,
