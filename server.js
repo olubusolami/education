@@ -1,9 +1,10 @@
+require("express-async-errors");
 const dotenv = require("dotenv");
 dotenv.config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const mongoose = require("mongoose");
+const connection = require("./db");
 const Contact = require("./model/contact");
 const Canada = require("./model/canadaSubmission");
 const US = require("./model/usSubmission");
@@ -33,16 +34,9 @@ const {
 const relocationSchema = require("./model/relocation");
 const { loginUser } = require("./routes/auth");
 
-//connect to mongoose
-mongoose
-  .connect(process.env.DB_CONNECT, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
-  .then((res) => console.log("connected to the database"));
-
+(async function db() {
+  await connection();
+})();
 app.use(cors());
 
 //express passage

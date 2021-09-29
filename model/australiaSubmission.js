@@ -4,7 +4,7 @@ const validator = require("validator");
 const australiaSchema = mongoose.Schema({
   email: {
     type: String,
-    required: true,
+    required: [true, "Email address is required."],
     validate: [validator.isEmail, "Please provide a valid email address."],
     unique: true,
   },
@@ -19,7 +19,6 @@ const australiaSchema = mongoose.Schema({
   },
   middleName: {
     type: String,
-    required: [true, "Please provide your middle name."],
     trim: true,
   },
   familyName: {
@@ -34,7 +33,6 @@ const australiaSchema = mongoose.Schema({
   },
   houseAddress: {
     type: String,
-    required: true,
   },
   countryOfCitizenship: {
     type: String,
@@ -42,7 +40,6 @@ const australiaSchema = mongoose.Schema({
   },
   immigrationHistory: {
     type: String,
-    required: true,
   },
   visaDenialLetter: {
     type: String,
