@@ -6,9 +6,9 @@ const submission = (data) => {
   const schema = Joi.object({
     email: Joi.string().min(6).required().email(),
     phoneNumber: Joi.string().min(10).max(15).required(),
-    givenName: Joi.string().min(6).required(),
-    familyName: Joi.string().min(6).required(),
-    middleName: Joi.string().min(6),
+    givenName: Joi.string().min(3).required(),
+    familyName: Joi.string().min(3).required(),
+    middleName: Joi.string().min(3),
     houseAddress: Joi.string(),
     birthDate: Joi.string().required(),
     countryOfCitizenship: Joi.string().required(),
@@ -23,7 +23,7 @@ const submission = (data) => {
 
 const contactValidation = (data) => {
   const schema = Joi.object({
-    name: Joi.string().min(6).required(),
+    name: Joi.string().min(4).required(),
     email: Joi.string().min(6).required().email(),
     subject: Joi.string().min(6).required(),
     message: Joi.string().min(6).required(),
@@ -35,10 +35,10 @@ const workSubmission = (data) => {
   const schema = Joi.object({
     email: Joi.string().min(6).required().email(),
     phoneNumber: Joi.string().min(10).max(15).required(),
-    givenName: Joi.string().min(6).required(),
-    familyName: Joi.string().min(6).required(),
-    middleName: Joi.string().min(6),
-    houseAddress: Joi.string().required(),
+    givenName: Joi.string().min(3).required(),
+    familyName: Joi.string().min(3).required(),
+    middleName: Joi.string().min(3).required(),
+    houseAddress: Joi.string(),
     birthDate: Joi.string().required(),
     countryOfCitizenship: Joi.string().required(),
     immigrationHistory: Joi.string(),
@@ -50,7 +50,7 @@ const workSubmission = (data) => {
 
 const relocationSubmission = (data) => {
   const schema = Joi.object({
-    name: Joi.string().min(6).required(),
+    name: Joi.string().min(4).required(),
     email: Joi.string().min(6).required().email(),
     phoneNumber: Joi.string().min(10).max(15).required(),
     chooseWhatYouWantToKnowAbout: Joi.string().required(),
