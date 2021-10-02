@@ -19,6 +19,7 @@ const australiaSchema = mongoose.Schema({
   },
   middleName: {
     type: String,
+    required: [true, "Please provide your other name."],
     trim: true,
   },
   familyName: {

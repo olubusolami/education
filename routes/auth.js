@@ -2,29 +2,29 @@ const User = require("../model/register");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-//register
-// const createUser = async (req, res) => {
-//   const emailExist = await User.findOne({ email: req.body.email });
-//   if (emailExist)
-//     return res.status(400).json("User Already Exist. Please Login");
+//register;
+const createUser = async (req, res) => {
+  const emailExist = await User.findOne({ email: req.body.email });
+  if (emailExist)
+    return res.status(400).json("User Already Exist. Please Login");
 
-//   //hash the password
-//   const salt = await bcrypt.genSalt(10);
-//   const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  //hash the password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-//   //create a new user
-//   const user = new User({
-//     email: req.body.email,
-//     password: hashedPassword,
-//   });
+  //create a new user
+  const user = new User({
+    email: req.body.email,
+    password: hashedPassword,
+  });
 
-//   try {
-//     const savedUser = await user.save();
-//     res.json(user);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// };
+  try {
+    const savedUser = await user.save();
+    res.json(user);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
 
 //login
 const loginUser = async (req, res) => {
@@ -43,4 +43,4 @@ const loginUser = async (req, res) => {
   return res.status(200).json({ user: user.email, token: token });
 };
 
-module.exports = { loginUser };
+module.exports = { createUser, loginUser };
