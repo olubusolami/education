@@ -8,7 +8,7 @@ const submission = (data) => {
     phoneNumber: Joi.string().min(10).max(15).required(),
     givenName: Joi.string().min(3).required(),
     familyName: Joi.string().min(3).required(),
-    middleName: Joi.string().min(3),
+    middleName: Joi.string().min(3).required(),
     houseAddress: Joi.string(),
     birthDate: Joi.string().required(),
     countryOfCitizenship: Joi.string().required(),

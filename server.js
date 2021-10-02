@@ -32,8 +32,7 @@ const {
   relocationForm,
 } = require("./controllers/relocationDetails");
 const relocationSchema = require("./model/relocation");
-const { createUser, loginUser } = require("./routes/auth");
-const passwordReset = require("./routes/passwordReset");
+const { loginUser } = require("./routes/auth");
 
 (async function db() {
   await connection();
@@ -43,8 +42,6 @@ app.use(cors());
 //express passage
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: false, limit: "50mb" }));
-
-app.use("/api/password-reset", passwordReset);
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -57,7 +54,6 @@ app.use(function (req, res, next) {
     "Origin, X-Requested-With, Content-Type, Authorization"
   );
   res.setHeader("Access-Control-Allow-Credentials", true);
-  // Pass to next layer of middleware
   next();
 });
 
@@ -270,7 +266,7 @@ app.post(
 app.get("/lithuaina_forms", lithuainaSchema);
 app.post("/relocation_form", relocationForm);
 app.get("/relocation_forms", relocationSchema);
-app.post("/register", createUser);
+// app.post("/register", createUser);
 app.post("/login", loginUser);
 
 const port = process.env.PORT || 5000;
