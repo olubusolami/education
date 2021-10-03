@@ -1,5 +1,7 @@
 //validation
 const Joi = require("@hapi/joi");
+// const Validator = require("validator");
+// const isEmpty = require("./is-empty");
 
 //validation
 const submission = (data) => {
@@ -7,7 +9,7 @@ const submission = (data) => {
     email: Joi.string().min(6).required().email(),
     phoneNumber: Joi.string().min(10).max(15).required(),
     givenName: Joi.string().min(3).required(),
-    familyName: Joi.string().min(3).required(),
+    lastName: Joi.string().min(3).required(),
     middleName: Joi.string().min(3).required(),
     houseAddress: Joi.string(),
     birthDate: Joi.string().required(),
@@ -36,7 +38,7 @@ const workSubmission = (data) => {
     email: Joi.string().min(6).required().email(),
     phoneNumber: Joi.string().min(10).max(15).required(),
     givenName: Joi.string().min(3).required(),
-    familyName: Joi.string().min(3).required(),
+    lastName: Joi.string().min(3).required(),
     middleName: Joi.string().min(3).required(),
     houseAddress: Joi.string(),
     birthDate: Joi.string().required(),

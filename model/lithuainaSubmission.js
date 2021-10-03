@@ -6,11 +6,10 @@ const lithuainaSchema = mongoose.Schema({
     type: String,
     required: [true, "Email address is required."],
     validate: [validator.isEmail, "Please provide a valid email address."],
-    unique: true,
   },
   phoneNumber: {
     type: Number,
-    required: true,
+    required: [true, "Phone number is required."],
   },
   givenName: {
     type: String,
@@ -22,23 +21,22 @@ const lithuainaSchema = mongoose.Schema({
     required: [true, "Please provide your middle name."],
     trim: true,
   },
-  familyName: {
+  lastName: {
     type: String,
     required: [true, "Please provide your surname."],
     trim: true,
   },
   birthDate: {
     type: String,
-    required: true,
+    required: [true, "Please provide your birth date"],
     trim: true,
   },
   houseAddress: {
     type: String,
-    required: true,
   },
   countryOfCitizenship: {
     type: String,
-    required: true,
+    required: [true, "country of citizenship is required."],
   },
   immigrationHistory: {
     type: String,
@@ -52,12 +50,12 @@ const lithuainaSchema = mongoose.Schema({
   },
   gender: {
     type: String,
-    required: true,
+    required: [true, "gender is required"],
     enum: ["male", "female", "prefer_not_to_say"],
   },
   experienceLevel: {
     type: String,
-    required: true,
+    required: [true, "experience level is required"],
     enum: ["skilled", "unskilled"],
   },
   date: {

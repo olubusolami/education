@@ -58,7 +58,7 @@ exports.lithuainaForm = async (req, res) => {
       phoneNumber: req.body.phoneNumber,
       givenName: req.body.givenName,
       middleName: req.body.middleName,
-      familyName: req.body.familyName,
+      lastName: req.body.lastName,
       birthDate: req.body.birthDate,
       houseAddress: req.body.houseAddress,
       gender: req.body.gender,
