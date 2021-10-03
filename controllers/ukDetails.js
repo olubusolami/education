@@ -41,7 +41,19 @@ exports.uk = multer({
 exports.ukForm = async (req, res) => {
   try {
     //validate before sending details
-    const { error } = submission(req.body);
+    const { error } = submission(
+      req.email,
+      req.phoneNumber,
+      req.givenName,
+      req.middleName,
+      req.lastName,
+      req.birthDate,
+      req.countryOfCitizenship,
+      req.gender,
+      req.programLevel,
+      req.highestLevelOfEducation,
+      req.desiredCourseOfStudy
+    );
     if (error) return res.status(400).json(error.details[0].message);
 
     let visaDenialLetter;
@@ -58,7 +70,7 @@ exports.ukForm = async (req, res) => {
       phoneNumber: req.body.phoneNumber,
       givenName: req.body.givenName,
       middleName: req.body.middleName,
-      familyName: req.body.familyName,
+      lastName: req.body.lastName,
       birthDate: req.body.birthDate,
       houseAddress: req.body.houseAddress,
       gender: req.body.gender,
