@@ -25,6 +25,7 @@ const australiaSchema = require("./model/australiaSubmission");
 const { us, usForm } = require("./controllers/usDetails");
 const { errorHandler } = require("./middleware/errorHandler");
 const { errorsHandler } = require("./middleware/errorHandler");
+const { contactHandler } = require("./middleware/errorHandler");
 const usSchema = require("./model/usSubmission");
 const {
   relocationRoute,
@@ -218,7 +219,7 @@ app.delete("/relocation/:id", auth, function (req, res) {
 
 //middleware
 app.get("/contacts", contactSchema);
-app.use("/contacts", contactRoute);
+app.use("/contacts", contactHandler, contactRoute);
 app.post(
   "/canada_form",
   canada.single("canadaDenialLetter"),
@@ -242,5 +243,5 @@ app.get("/relocation_forms", relocationSchema);
 // app.post("/register", createUser);
 app.post("/login", loginUser);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5500;
 app.listen(port, () => console.log("server running well"));
