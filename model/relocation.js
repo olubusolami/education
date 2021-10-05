@@ -4,7 +4,7 @@ const validator = require("validator");
 const relocationSchema = mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Please provide your first name."],
+    required: true,
     trim: true,
   },
   phoneNumber: {
@@ -13,7 +13,7 @@ const relocationSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, "Email address is required."],
+    required: true,
     validate: [validator.isEmail, "Please provide a valid email address."],
   },
   chooseWhatYouWantToKnowAbout: {
