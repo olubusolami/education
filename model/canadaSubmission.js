@@ -4,31 +4,30 @@ const validator = require("validator");
 const canadaSchema = mongoose.Schema({
   email: {
     type: String,
-    required: [true, "Email address is required."],
+    required: true,
     validate: [validator.isEmail, "Please provide a valid email address."],
   },
   phoneNumber: {
     type: Number,
-    required: [true, "Phone number is required."],
+    required: true,
   },
   givenName: {
     type: String,
-    required: [true, "Please provide your first name."],
+    required: true,
     trim: true,
   },
   middleName: {
     type: String,
-    required: [true, "Please provide your other name."],
+    required: true,
     trim: true,
   },
   lastName: {
     type: String,
-    required: [true, "Please provide your surname."],
-    trim: true,
+    required: true,
   },
   birthDate: {
     type: String,
-    required: [true, "Please provide your birth date"],
+    required: true,
     trim: true,
   },
   houseAddress: {
@@ -36,7 +35,7 @@ const canadaSchema = mongoose.Schema({
   },
   countryOfCitizenship: {
     type: String,
-    required: [true, "country of citizenship is required."],
+    required: true,
   },
   immigrationHistory: {
     type: String,
@@ -49,21 +48,21 @@ const canadaSchema = mongoose.Schema({
   },
   gender: {
     type: String,
-    required: [true, "gender is required"],
+    required: true,
     enum: ["male", "female", "prefer_not_to_say"],
   },
   programLevel: {
     type: String,
-    required: [true, "Your Program level is required."],
+    required: true,
     enum: ["bsc", "masters", "post-graduate diploma", "pre-masters degree"],
   },
   highestLevelOfEducation: {
     type: String,
-    required: [true, "Highest level of education is required."],
+    required: true,
   },
   desiredCourseOfStudy: {
     type: String,
-    required: [true, "desired course of study is required."],
+    required: true,
   },
   date: {
     type: Date,

@@ -1,5 +1,4 @@
 const usDetails = require("../model/usSubmission");
-const { submission } = require("../validation");
 const path = require("path");
 const multer = require("multer");
 const cloudinary = require("cloudinary");
@@ -40,22 +39,6 @@ exports.us = multer({
 
 exports.usForm = async (req, res) => {
   try {
-    //validate before sending details
-    const { error } = submission(
-      req.email,
-      req.phoneNumber,
-      req.givenName,
-      req.middleName,
-      req.lastName,
-      req.birthDate,
-      req.countryOfCitizenship,
-      req.gender,
-      req.programLevel,
-      req.highestLevelOfEducation,
-      req.desiredCourseOfStudy
-    );
-    if (error) return res.status(400).json(error.details[0].message);
-
     let visaDenialLetter;
     let visaDenialLetterKey;
     if (req.file) {

@@ -11,7 +11,6 @@ const US = require("./model/usSubmission");
 const Australia = require("./model/australiaSubmission");
 const UK = require("./model/ukSubmission");
 const auth = require("./middleware/auth");
-const Lithuaina = require("./model/lithuainaSubmission");
 const Relocation = require("./model/relocation");
 
 //import routes
@@ -24,9 +23,9 @@ const ukSchema = require("./model/ukSubmission");
 const { australia, australiaForm } = require("./controllers/australiaDetails");
 const australiaSchema = require("./model/australiaSubmission");
 const { us, usForm } = require("./controllers/usDetails");
+const { errorHandler } = require("./middleware/errorHandler");
+const { errorsHandler } = require("./middleware/errorHandler");
 const usSchema = require("./model/usSubmission");
-const lithuainaSchema = require("./model/lithuainaSubmission");
-const { lithuaina, lithuainaForm } = require("./controllers/lithuainaDetails");
 const {
   relocationRoute,
   relocationForm,
@@ -191,32 +190,6 @@ app.delete("/uk/:id", auth, function (req, res) {
     .catch((error) => next(err));
 });
 
-//get all lithuaina details
-app.get("/lithuaina_forms", auth, (req, res) => {
-  Lithuaina.find()
-    .then((users) => {
-      res.send(users);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
-
-//delete one lithuaina detail
-app.delete("/lithuaina/:id", auth, function (req, res) {
-  Lithuaina.findByIdAndDelete(req.params.id)
-    .exec()
-    .then((result) => {
-      if (!result) {
-        return res.status(404).end();
-      }
-      return res
-        .status(200)
-        .json({ status: "Success", message: "Deleted Successfully" });
-    })
-    .catch((error) => next(err));
-});
-
 //get all relocation details
 app.get("/relocation_forms", auth, (req, res) => {
   Relocation.find()
@@ -246,25 +219,25 @@ app.delete("/relocation/:id", auth, function (req, res) {
 //middleware
 app.get("/contacts", contactSchema);
 app.use("/contacts", contactRoute);
-app.post("/canada_form", canada.single("canadaDenialLetter"), canadaForm);
+app.post(
+  "/canada_form",
+  canada.single("canadaDenialLetter"),
+  errorHandler,
+  canadaForm
+);
 app.get("/canada_forms", canadaSchema);
-app.post("/uk_form", uk.single("ukDenialLetter"), ukForm);
+app.post("/uk_form", uk.single("ukDenialLetter"), errorHandler, ukForm);
 app.get("/uk_forms", ukSchema);
 app.post(
   "/australia_form",
   australia.single("australiaDenialLetter"),
+  errorHandler,
   australiaForm
 );
 app.get("/australia_forms", australiaSchema);
-app.post("/us_form", us.single("usDenialLetter"), usForm);
+app.post("/us_form", us.single("usDenialLetter"), errorHandler, usForm);
 app.get("/us_forms", usSchema);
-app.post(
-  "/lithuaina_form",
-  lithuaina.single("lithuainaDenialLetter"),
-  lithuainaForm
-);
-app.get("/lithuaina_forms", lithuainaSchema);
-app.post("/relocation_form", relocationForm);
+app.post("/relocation_form", errorsHandler, relocationForm);
 app.get("/relocation_forms", relocationSchema);
 // app.post("/register", createUser);
 app.post("/login", loginUser);

@@ -1,14 +1,9 @@
 const router = require("express").Router();
 const Contact = require("../model/contact");
-const { contactValidation } = require("../validation");
 
 //contact us
 router.post("/", async (req, res) => {
   try {
-    //validate before sending message
-    const { error } = contactValidation(req.body);
-    if (error) return res.status(400).json(error.details[0].message);
-
     //create a new contact
     const contact = await Contact.create({
       name: req.body.name,
